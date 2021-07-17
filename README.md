@@ -11,6 +11,7 @@ pip install pandas-datareader
 pip install Keras
 pip install scikit-learn
 pip install tensorflow
+pip install tensorflow-datasets
 <b>pip install tensorflow-macos <i>(Mac Users Only)</i></b></code>
 </pre>
 
