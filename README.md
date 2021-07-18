@@ -11,8 +11,7 @@ pip install pandas-datareader
 pip install Keras
 pip install scikit-learn
 pip install tensorflow
-pip install tensorflow-datasets
-<b>pip install tensorflow-macos <i>(Mac Users Only)</i></b></code>
+pip install tensorflow-datasets</code>
 </pre>
 
 <i>DISCLAIMER: This is not investing advice. I am not a professional who is qualified in giving any financial advice. This is a Python program purely about programming using financial data.</i>
