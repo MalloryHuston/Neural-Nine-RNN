@@ -92,4 +92,4 @@ prediction = model.predict(real_data)
 prediction = scaler.inverse_transform(prediction)
 print(f"Prediction: {prediction}")
 
-# print(scaler.inverse_transform(real_data[-1]))
+#print(scaler.inverse_transform(real_data[-1]))
