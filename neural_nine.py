@@ -11,7 +11,7 @@ from tensorflow.keras.models import Sequential
 # Load Data
 company = 'MSFT' #enter whichever ticker symbol for the company you want to predict stock price on
 
-start = dt.datetime(2012, 1, 1)
+start = dt.datetime(1970, 1, 1)
 end = dt.datetime(2020, 1, 1)
 
 data = web.DataReader(company, 'yahoo', start, end)
