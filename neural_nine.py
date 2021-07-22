@@ -9,9 +9,9 @@ from tensorflow.keras.layers import Dense, Dropout, LSTM
 from tensorflow.keras.models import Sequential
 
 # Load Data
-company = 'MSFT' #enter whichever ticker symbol for the company you want to predict stock price on
+company = 'MSFT'  # enter whichever ticker symbol for the company you want to predict stock price on
 
-start = dt.datetime(1970, 1, 1)
+start = dt.datetime(2012, 1, 1)
 end = dt.datetime(2020, 1, 1)
 
 data = web.DataReader(company, 'yahoo', start, end)
@@ -65,7 +65,7 @@ model_inputs = scaler.transform(model_inputs)
 x_test = []
 
 for x in range(prediction_days, len(model_inputs)):
-    x_test.append(model_inputs[x-prediction_days:x, 0])
+    x_test.append(model_inputs[x - prediction_days:x, 0])
 
 x_test = np.array(x_test)
 x_test = np.reshape(x_test, (x_test.shape[0], x_test.shape[1], 1))
@@ -84,7 +84,7 @@ plt.show()
 
 # Predict Next Day
 
-real_data = [model_inputs[len(model_inputs) + 1 - prediction_days:len(model_inputs+1), 0]]
+real_data = [model_inputs[len(model_inputs) + 1 - prediction_days:len(model_inputs + 1), 0]]
 real_data = np.array(real_data)
 real_data = np.reshape(real_data, (real_data.shape[0], real_data.shape[1], 1))
 
@@ -92,4 +92,4 @@ prediction = model.predict(real_data)
 prediction = scaler.inverse_transform(prediction)
 print(f"Prediction: {prediction}")
 
-#print(scaler.inverse_transform(real_data[-1]))
+# print(scaler.inverse_transform(real_data[-1]))
