@@ -5,8 +5,8 @@ import numpy as np
 import pandas as pd
 import pandas_datareader as web
 from sklearn.preprocessing import MinMaxScaler
-from tensorflow.keras.layers import Dense, Dropout, LSTM
-from tensorflow.keras.models import Sequential
+from keras.models import Sequential
+from keras.layers import LSTM, Dense, Dropout
 
 # Load Data
 company = 'FB'  # enter whichever ticker symbol for the company you want to predict stock price on
