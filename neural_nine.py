@@ -44,7 +44,7 @@ model.add(Dropout(0.2))
 model.add(Dense(units=1))  # Prediction of the next closing value
 
 model.compile(optimizer='adam', loss='mean_squared_error')
-model.fit(x_train, y_train, epochs=100, batch_size=32)
+model.fit(x_train, y_train, epochs=25, batch_size=32)
 
 ''' Test the Model Accuracy on Existing Data '''
 
