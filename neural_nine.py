@@ -12,7 +12,7 @@ from keras.layers import LSTM, Dense, Dropout
 company = 'FB'  # enter whichever ticker symbol for the company you want to predict stock price on
 
 start = dt.datetime(2012, 1, 1)
-end = dt.datetime(2020, 1, 1)
+end = dt.datetime(2021, 1, 1)
 
 data = web.DataReader(company, 'yahoo', start, end)
 
@@ -44,12 +44,12 @@ model.add(Dropout(0.2))
 model.add(Dense(units=1))  # Prediction of the next closing value
 
 model.compile(optimizer='adam', loss='mean_squared_error')
-model.fit(x_train, y_train, epochs=25, batch_size=32)
+model.fit(x_train, y_train, epochs=100, batch_size=32)
 
 ''' Test the Model Accuracy on Existing Data '''
 
 # Load Test Data
-test_start = dt.datetime(2020, 1, 1)
+test_start = dt.datetime(2021, 1, 1)
 test_end = dt.datetime.now()
 
 test_data = web.DataReader(company, 'yahoo', test_start, test_end)
@@ -84,12 +84,12 @@ plt.show()
 
 # Predict Next Day
 
-real_data = [model_inputs[len(model_inputs) + 1 - prediction_days:len(model_inputs + 1), 0]]
+real_data = [model_inputs[len(model_inputs) - prediction_days:len(model_inputs + 1), 0]]
 real_data = np.array(real_data)
 real_data = np.reshape(real_data, (real_data.shape[0], real_data.shape[1], 1))
 
 prediction = model.predict(real_data)
 prediction = scaler.inverse_transform(prediction)
-print(f"Prediction: {prediction}")
+print(f"Tomorrow's {company} share price will most likely be: {prediction}")
 
 # print(scaler.inverse_transform(real_data[-1]))
