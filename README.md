@@ -6,7 +6,7 @@ This algorithm predicts stock prices in Python using recurrent neural network an
 <pre>
 <code>pip install matplotlib
 pip install numpy
-pip3 install pandas
+pip install pandas
 pip install pandas-datareader
 pip install scikit-learn
 pip install tensorflow</code>
