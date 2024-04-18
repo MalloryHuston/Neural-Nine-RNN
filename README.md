@@ -8,8 +8,8 @@ This algorithm predicts stock prices in Python using recurrent neural network an
 $ pip install pandas
 $ pip install pandas-datareader
 $ pip install scikit-learn
-% pip install tensorflow
-% pip install keras</code>
+$ pip install tensorflow
+$ pip install keras</code>
 </pre>
 
 <i>DISCLAIMER: This is not investing advice. I am not a professional who is qualified in giving any financial advice. This is a Python program purely about programming using financial data.</i>
