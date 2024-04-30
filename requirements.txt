@@ -1,0 +1,8 @@
+matplotlib
+pyplot
+numpy
+pandas
+pandas-datareader
+scikit-learn
+tensorflow
+keras
