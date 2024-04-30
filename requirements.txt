@@ -1,8 +1,6 @@
-matplotlib
-pyplot
 numpy
+matplotlib
 pandas
 pandas-datareader
-scikit-learn
 tensorflow
-keras
+scikit-learn
