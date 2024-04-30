@@ -13,8 +13,8 @@ from tensorflow.keras.layers import LSTM, Dense, Dropout
 Enter whichever ticker symbol for the company you want to predict its next stock price on!
 '''
 company = 'AAPL'
-start = dt.datetime(2015, 1, 1)
-end = dt.datetime(2023, 1, 1)
+start = dt.datetime(2021, 1, 1)
+end = dt.datetime(2024, 4, 8)
 
 data = yf.download(company, start=start, end=end)
 
@@ -52,7 +52,7 @@ model.fit(x_train, y_train, epochs=25, batch_size=32)
 ### LOAD TEST DATA ###
 ''' Test the Model Accuracy on Existing Data '''
 company = 'AAPL'
-test_start = dt.datetime(2023, 1, 1)
+test_start = dt.datetime(2024, 1, 1)
 test_end = dt.datetime.now()
 
 test_data = yf.download(company, start=test_start, end=test_end)

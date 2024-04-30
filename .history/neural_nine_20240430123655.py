@@ -8,18 +8,19 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout
 
 
-### LOAD DATA ###
+# Load Data
 '''
 Enter whichever ticker symbol for the company you want to predict its next stock price on!
 '''
 company = 'AAPL'
-start = dt.datetime(2015, 1, 1)
-end = dt.datetime(2023, 1, 1)
+
+start = dt.datetime(2012, 1, 1)
+end = dt.datetime(2021, 1, 1)
 
 data = yf.download(company, start=start, end=end)
 
 
-### PREPARE DATA ###
+# Prepare Data
 scaler = MinMaxScaler(feature_range=(0, 1))
 scaled_data = scaler.fit_transform(data['Close'].values.reshape(-1, 1))
 
@@ -34,28 +35,27 @@ x_train, y_train = np.array(x_train), np.array(y_train)
 x_train = np.reshape(x_train, (x_train.shape[0], x_train.shape[1], 1))
 
 
-### BUILD THE MODEL ###
-model = Sequential([
-    LSTM(units=50, return_sequences=True, input_shape=(x_train.shape[1], 1)),
-    Dropout(0.2),
-    LSTM(units=50, return_sequences=True),
-    Dropout(0.2),
-    LSTM(units=50),
-    Dropout(0.2),
-    Dense(units=1)
-])  # Prediction of the next closing value
+# Build the Model
+model = Sequential()
+
+model.add(LSTM(units=50, return_sequences=True, input_shape=(x_train.shape[1], 1)))
+model.add(Dropout(0.2))
+model.add(LSTM(units=50, return_sequences=True))
+model.add(Dropout(0.2))
+model.add(LSTM(units=50))
+model.add(Dropout(0.2))
+model.add(Dense(units=1))  # Prediction of the next closing value
 
 model.compile(optimizer='adam', loss='mean_squared_error')
 model.fit(x_train, y_train, epochs=25, batch_size=32)
 
 
-### LOAD TEST DATA ###
-''' Test the Model Accuracy on Existing Data '''
-company = 'AAPL'
-test_start = dt.datetime(2023, 1, 1)
+# Load Test Data
+'''Test the Model Accuracy on Existing Data '''
+test_start = dt.datetime(2021, 1, 1)
 test_end = dt.datetime.now()
 
-test_data = yf.download(company, start=test_start, end=test_end)
+test_data = web.DataReader(company, 'yahoo', test_start, test_end)
 actual_prices = test_data['Close'].values
 
 total_dataset = pd.concat((data['Close'], test_data['Close']), axis=0)
@@ -65,7 +65,7 @@ model_inputs = model_inputs.reshape(-1, 1)
 model_inputs = scaler.transform(model_inputs)
 
 
-### MAKE PREDICTIONS ON TEST DATA ###
+# Make Predictions on Test Data
 x_test = []
 
 for x in range(prediction_days, len(model_inputs)):
@@ -78,7 +78,7 @@ predicted_prices = model.predict(x_test)
 predicted_prices = scaler.inverse_transform(predicted_prices)
 
 
-### PLOT THE TEST PREDICTIONS ###
+# Plot the Test Predictions
 plt.plot(actual_prices, color="black", label=f"Actual {company} Price")
 plt.plot(predicted_prices, color='green', label=f"Predicted {company} Price")
 plt.title(f"{company} Share Price")
@@ -88,7 +88,7 @@ plt.legend()
 plt.show()
 
 
-### PREDICT THE NEXT DAY ###
+# Predict Next Day
 real_data = [model_inputs[len(model_inputs) - prediction_days:len(model_inputs + 1), 0]]
 real_data = np.array(real_data)
 real_data = np.reshape(real_data, (real_data.shape[0], real_data.shape[1], 1))

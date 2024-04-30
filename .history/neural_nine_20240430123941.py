@@ -13,8 +13,9 @@ from tensorflow.keras.layers import LSTM, Dense, Dropout
 Enter whichever ticker symbol for the company you want to predict its next stock price on!
 '''
 company = 'AAPL'
-start = dt.datetime(2015, 1, 1)
-end = dt.datetime(2023, 1, 1)
+
+start = dt.datetime(2012, 1, 1)
+end = dt.datetime(2021, 1, 1)
 
 data = yf.download(company, start=start, end=end)
 
@@ -50,12 +51,11 @@ model.fit(x_train, y_train, epochs=25, batch_size=32)
 
 
 ### LOAD TEST DATA ###
-''' Test the Model Accuracy on Existing Data '''
-company = 'AAPL'
-test_start = dt.datetime(2023, 1, 1)
+'''Test the Model Accuracy on Existing Data '''
+test_start = dt.datetime(2021, 1, 1)
 test_end = dt.datetime.now()
 
-test_data = yf.download(company, start=test_start, end=test_end)
+test_data = web.DataReader(company, 'yahoo', test_start, test_end)
 actual_prices = test_data['Close'].values
 
 total_dataset = pd.concat((data['Close'], test_data['Close']), axis=0)
@@ -97,4 +97,4 @@ prediction = model.predict(real_data)
 prediction = scaler.inverse_transform(prediction)
 print(f"Tomorrow's {company} share price will most likely be: {prediction}")
 
-# print(scaler.inverse_transform(real_data[-1]))
+print(scaler.inverse_transform(real_data[-1]))
