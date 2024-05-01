@@ -13,7 +13,6 @@ from tensorflow.keras.layers import LSTM, Dense, Dropout
 Enter whichever ticker symbol for the company you want to predict its next stock price on!
 '''
 company = 'AAPL'
-
 start = dt.datetime(2015, 1, 1)
 end = dt.datetime(2023, 1, 1)
 

@@ -2,7 +2,7 @@ import datetime as dt
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import yfinance as yf
+import pandas_datareader.data as web
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout
@@ -17,7 +17,8 @@ company = 'AAPL'
 start = dt.datetime(2015, 1, 1)
 end = dt.datetime(2023, 1, 1)
 
-data = yf.download(company, start=start, end=end)
+data = web.DataReader('AAPL', 'yahoo', start, end)
+data.head()
 
 
 ### PREPARE DATA ###
@@ -55,7 +56,7 @@ model.fit(x_train, y_train, epochs=25, batch_size=32)
 test_start = dt.datetime(2023, 1, 1)
 test_end = dt.datetime.now()
 
-test_data = yf.download(company, start=test_start, end=test_end)
+test_data = web.DataReader('AAPL', 'yahoo', test_start, test_end)
 actual_prices = test_data['Close'].values
 
 total_dataset = pd.concat((data['Close'], test_data['Close']), axis=0)

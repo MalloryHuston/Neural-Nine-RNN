@@ -2,6 +2,7 @@ import datetime as dt
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import pandas_datareader.data as web
 import yfinance as yf
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Sequential
@@ -13,11 +14,10 @@ from tensorflow.keras.layers import LSTM, Dense, Dropout
 Enter whichever ticker symbol for the company you want to predict its next stock price on!
 '''
 company = 'AAPL'
-
 start = dt.datetime(2015, 1, 1)
 end = dt.datetime(2023, 1, 1)
 
-data = yf.download(company, start=start, end=end)
+data = web.DataReader(company, 'yahoo', start, end)
 
 
 ### PREPARE DATA ###
