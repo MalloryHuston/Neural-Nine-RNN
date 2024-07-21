@@ -25,4 +25,4 @@ You can install the required ``pip`` packages by running
 <code>(env_neural) $ conda install --yes --file requirements.txt</code>
 </pre>
 
-<i>DISCLAIMER: This is not investing advice. I am not a professional who is qualified in giving any financial advice. This is a Python program purely about coding with financial data from the U.S. stock market.</i>
+<b><i>DISCLAIMER: This is not investing advice. I am not a professional who is qualified in giving any financial advice. This is a Python program purely about coding with financial data from the U.S. stock market.</i></b>
