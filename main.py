@@ -8,19 +8,15 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout
 
 
-### LOAD DATA ###
-'''
-Enter whichever ticker symbol for the company you want to predict its next stock price on!
-'''
-company = 'AAPL'
+# Ask the user for the ticker symbol
+company = input("Enter the ticker symbol of the company: ")
 
-start = dt.datetime(2015, 1, 1)
-end = dt.datetime(2023, 1, 1)
+start = dt.datetime(2016, 1, 1)
+end = dt.datetime(2024, 1, 1)
 
 data = yf.download(company, start=start, end=end)
 
-
-### PREPARE DATA ###
+# Prepare data
 scaler = MinMaxScaler(feature_range=(0, 1))
 scaled_data = scaler.fit_transform(data['Close'].values.reshape(-1, 1))
 
@@ -34,8 +30,7 @@ for x in range(prediction_days, len(scaled_data)):
 x_train, y_train = np.array(x_train), np.array(y_train)
 x_train = np.reshape(x_train, (x_train.shape[0], x_train.shape[1], 1))
 
-
-### BUILD THE MODEL ###
+# Build the model
 model = Sequential([
     LSTM(units=50, return_sequences=True, input_shape=(x_train.shape[1], 1)),
     Dropout(0.2),
@@ -49,9 +44,7 @@ model = Sequential([
 model.compile(optimizer='adam', loss='mean_squared_error')
 model.fit(x_train, y_train, epochs=25, batch_size=32)
 
-
-### LOAD TEST DATA ###
-''' Test the Model Accuracy on Existing Data '''
+# Load test data
 test_start = dt.datetime(2023, 1, 1)
 test_end = dt.datetime.now()
 
@@ -64,8 +57,7 @@ model_inputs = total_dataset[len(total_dataset) - len(test_data) - prediction_da
 model_inputs = model_inputs.reshape(-1, 1)
 model_inputs = scaler.transform(model_inputs)
 
-
-### MAKE PREDICTIONS ON TEST DATA ###
+# Make predictions on test data
 x_test = []
 
 for x in range(prediction_days, len(model_inputs)):
@@ -77,8 +69,7 @@ x_test = np.reshape(x_test, (x_test.shape[0], x_test.shape[1], 1))
 predicted_prices = model.predict(x_test)
 predicted_prices = scaler.inverse_transform(predicted_prices)
 
-
-### PLOT THE TEST PREDICTIONS ###
+# Plot the test predictions
 plt.plot(actual_prices, color="black", label=f"Actual {company} Price")
 plt.plot(predicted_prices, color='green', label=f"Predicted {company} Price")
 plt.title(f"{company} Share Price")
@@ -87,14 +78,27 @@ plt.ylabel(f'{company} Share Price')
 plt.legend()
 plt.show()
 
+# Predict the future price
+days_ahead = int(input("Enter the number of days from now to predict the stock price: "))
 
-### PREDICT THE NEXT DAY ###
-real_data = [model_inputs[len(model_inputs) - prediction_days:len(model_inputs + 1), 0]]
-real_data = np.array(real_data)
-real_data = np.reshape(real_data, (real_data.shape[0], real_data.shape[1], 1))
+# Start from the last known data
+last_known_data = model_inputs[-prediction_days:]
 
-prediction = model.predict(real_data)
-prediction = scaler.inverse_transform(prediction)
-print(f"Tomorrow's {company} share price will most likely be: {prediction}")
+# Predict the price for the specified number of days ahead
+predictions = []
+for _ in range(days_ahead):
+    real_data = np.array([last_known_data])
+    real_data = np.reshape(real_data, (real_data.shape[0], real_data.shape[1], 1))
+    prediction = model.predict(real_data)
+    prediction = scaler.inverse_transform(prediction)
 
-# print(scaler.inverse_transform(real_data[-1]))
+    # Append the new prediction to predictions list
+    predictions.append(prediction[0][0])
+
+    # Append the new prediction to last_known_data and remove the
+    # first entry to maintain the window size
+    last_known_data = np.append(last_known_data, scaler.transform(prediction), axis=0)
+    last_known_data = last_known_data[1:]
+
+# The final prediction is the stock price for the specified number of days ahead
+print(f"The predicted {company} share price in {days_ahead} days will most likely be: {predictions[-1]}")
