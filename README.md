@@ -1,5 +1,5 @@
 # NeuralNine RNN
-This algorithm predicts stock prices in Python using recurrent neural network and machine learning. Practice run from YouTuber <a href="https://www.youtube.com/watch?v=PuZY9q-aKLw">NeuralNine</a>. <b>[Published on Febuary 2nd, 2021]</b>
+This algorithm predicts stock prices in Python using recurrent neural networks and machine learning. Practice run from YouTuber <a href="https://www.youtube.com/watch?v=PuZY9q-aKLw">NeuralNine</a>. <b>[Published on Febuary 2nd, 2021]</b>
 
 ### VIRTUAL ENVIRONMENT
 
