@@ -3,7 +3,7 @@ This algorithm predicts stock prices in Python using recurrent neural network an
 
 ### VIRTUAL ENVIRONMENT
 
-It is recommended to run this program in a ``conda`` environment. Assuming that has already been set up, you can create a ``conda`` environment:
+It is highly recommended to run this program in a ``conda`` environment. Assuming that has already been set up, you can create a ``conda`` environment:
 <pre>
 <code>$ conda create -n env_neural python=3.10</code>
 </pre>
