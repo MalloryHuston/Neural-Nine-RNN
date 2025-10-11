@@ -1,8 +1,9 @@
 ###### Requirements without Version Specifiers ######
 anaconda
+conda
 lxml
 requests
-requests_cache
+requests-cache
 scikit-image
 yfinance
 
