@@ -1,6 +1,4 @@
 ###### Requirements Without Version Specifiers ######
-anaconda
-conda
 lxml
 requests
 requests-cache
