@@ -20,9 +20,14 @@ Now that has already been set up, you can create a ``conda`` environment:
 <code>$ conda create -n neural_nine python=3.10</code>
 </pre>
 
-Now you have set up an isolated environment called ``neural_nine``, a sandbox-like structure to install everything mentioned in the ``requirements.txt`` file. Then you should activate the ``conda`` environment by using the command
+Now you have set up an isolated environment called ``neural_nine``, a sandbox-like structure to install everything mentioned in the ``requirements.txt`` file. Then you should activate the ``conda`` environment by using the command:
 <pre>
 <code>$ conda activate neural_nine</code>
+</pre>
+
+Next, you must abosolutely make sure your Python is compiled for arm64 when creating ``conda`` or it will not work:
+<pre>
+<code>$ conda config --env --set subdir osx-arm64</code>
 </pre>
 
 To deactivate the ``conda`` environment:
