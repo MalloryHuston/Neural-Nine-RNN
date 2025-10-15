@@ -27,7 +27,7 @@ Now you have set up an isolated environment called ``neural_nine``, a sandbox-li
 
 Next, you must absolutely make sure your Python is compiled for arm64 when creating ``conda`` or it will not work:
 <pre>
-<code>$ conda config --env --set subdir osx-arm64</code>
+<code>(neural_nine) $ conda config --env --set subdir osx-arm64</code>
 </pre>
 
 To deactivate the ``conda`` environment:
