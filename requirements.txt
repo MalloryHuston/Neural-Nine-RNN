@@ -1,8 +1,11 @@
 ###### Requirements Without Version Specifiers ######
+certifi
 lxml
+pip
 requests
 requests-cache
 scikit-image
+wheel
 yfinance
 
 ###### Requirements With Version Specifiers ######
