@@ -39,7 +39,7 @@ To deactivate the ``conda`` environment:
 
 Please install the required ``pip`` packages by running the following command:
 <pre>
-<code>(neural_nine) $ conda install --yes --file requirements.txt</code>
+<code>(neural_nine) $ pip install -r requirements.txt</code>
 </pre>
 
 <b><i>DISCLAIMER: This is not investing advice. I am not a professional who is qualified in giving any financial advice. This is a Python program purely about coding with financial data from the U.S. stock market.</i></b>
