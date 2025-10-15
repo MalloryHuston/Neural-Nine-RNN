@@ -1,17 +1,24 @@
 ###### Requirements Without Version Specifiers ######
 certifi
 lxml
+mplfinance
+pandas-datareader
 pip
 requests
 requests-cache
 scikit-image
 wheel
-yfinance
 
 ###### Requirements With Version Specifiers ######
 #   See https://www.python.org/dev/peps/pep-0440/#version-specifiers
-numpy == 1.23.4
+grpcio == 1.51.1
+h5py == 3.7.0
+numpy == 1.24.4
 matplotlib == 3.7.3
 pandas == 2.0.3
-tensorflow == 2.15.0
+protobuf == 3.19.6
 scikit-learn == 1.3.2
+scipy == 1.10.1
+tensorflow-macos == 2.15.0
+tensorflow-metal == 1.1.0
+yfinance == 0.2.36
