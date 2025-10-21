@@ -10,7 +10,7 @@ It is highly recommended to run this program in a ``conda`` environment. Downloa
 <code>$ curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh</code>
 </pre>
 
-2. Install by running the following:
+2. Install it by running the following:
 <pre>
 <code>$ bash ~/Miniconda3-latest-MacOSX-arm64.sh</code>
 </pre>
