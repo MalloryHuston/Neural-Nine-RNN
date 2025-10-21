@@ -40,7 +40,7 @@ To deactivate the ``conda`` environment:
 Please install the required ``pip`` packages by running the following commands:
 
 <pre>
-<code>(neural_nine) $ pip install --upgrade pip setuptools wheel</code>
+<code>(neural_nine) $ pip install --upgrade pip</code>
 </pre>
 
 <pre>
