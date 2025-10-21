@@ -37,11 +37,7 @@ To deactivate the ``conda`` environment:
 
 ### REQUIREMENTS
 
-Please install the required ``pip`` packages by running the following commands:
-
-<pre>
-<code>(neural_nine) $ pip install --upgrade pip</code>
-</pre>
+Please install the required ``pip`` packages by running the following command:
 
 <pre>
 <code>(neural_nine) $ pip install -r requirements.txt</code>
