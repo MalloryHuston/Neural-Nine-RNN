@@ -6,6 +6,8 @@ pandas-datareader
 requests
 requests-cache
 scikit-image
+setuptools
+wheel
 
 ###### Requirements With Version Specifiers ######
 #   See https://www.python.org/dev/peps/pep-0440/#version-specifiers
