@@ -15,9 +15,9 @@ It is highly recommended to run this program in a ``conda`` environment. Downloa
 <code>$ bash ~/Miniconda3-latest-MacOSX-arm64.sh</code>
 </pre>
 
-Now that has already been set up, you can create a ``conda`` environment and set up its interpreter as ``Python 3.9``:
+Now that has already been set up, you can create a ``conda`` environment and set up its interpreter as ``Python 3.10``:
 <pre>
-<code>$ conda create -n neural_nine python=3.9</code>
+<code>$ conda create -n neural_nine python=3.10</code>
 </pre>
 
 Now you have set up an isolated environment called ``neural_nine``, a sandbox-like structure to install everything mentioned in the ``requirements.txt`` file. Then you should activate the ``conda`` environment by using the command:
