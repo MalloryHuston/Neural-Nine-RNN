@@ -1,5 +1,6 @@
 ###### Requirements Without Version Specifiers ######
 certifi
+grpcio
 lxml
 mplfinance
 pandas-datareader
@@ -11,7 +12,6 @@ wheel
 
 ###### Requirements With Version Specifiers ######
 #   See https://www.python.org/dev/peps/pep-0440/#version-specifiers
-grpcio == 1.51.1
 h5py == 3.7.0
 matplotlib == 3.7.3
 numpy == 1.24.4
