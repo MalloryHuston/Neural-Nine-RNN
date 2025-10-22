@@ -4,14 +4,28 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import yfinance as yf
+import os
 
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.layers import Dense, Dropout, LSTM
 from tensorflow.keras.models import Sequential
+from pandas.tseries.offsets import BDay  # For business-day handling
 
 
-# Ask the user for the ticker symbol
-company = input("Enter the ticker symbol of the company: ")
+# Ask the user to enter a company's ticker symbol of their choice
+company = input("Enter your favorite company's ticker symbol: ").upper()
+
+# Fetch earnings dates dynamically
+ticker_obj = yf.Ticker(company)
+try:
+    earnings_dates_df = ticker_obj.get_earnings_dates(limit=8)
+    # Convert to datetime dates
+    earning_dates = pd.to_datetime(
+        earnings_dates_df['Earnings Date']
+    ).dt.date.tolist()
+except Exception as e:
+    earnings_dates = []
+    print(f"WARNING: Could not fetch earnings dates for {company}: {e}")
 
 start = dt.datetime(2016, 1, 1)
 end = dt.datetime(2024, 1, 1)
@@ -76,7 +90,8 @@ predicted_prices = scaler.inverse_transform(predicted_prices)
 # Update x-axis to show dates
 dates = test_data.index  # Get the actual dates for the x-axis
 
-plt.figure(figsize=(12, 6))
+# Plot the test predictions
+plt.figure(dpi=100, figsize=(14, 7))
 plt.plot(
     dates,
     actual_prices,
@@ -89,6 +104,22 @@ plt.plot(
     color='green',
     label=f"Predicted {company} Price"
 )
+
+# Add dynamic earnings date markers (if available)
+for ed in earnings_dates:
+    if pd.Timestamp(ed) in dates:
+        plt.axvline(x=ed, color='red', linestyle='--', linewidth=1)
+        plt.text(
+            ed,
+            plt.ylim()[1] * 0.95,
+            "Earnings",
+            rotation=90,
+            verticalalignment='top',
+            horitzonalalignment='right',
+            fontsize=9,
+            color='red'
+        )
+
 plt.title(f"{company} Share Price")
 plt.xlabel('Time')
 plt.ylabel(f'{company} Share Price')
@@ -100,12 +131,14 @@ plt.show()
 
 # Predict the future price
 days_ahead = int(
-    input("Enter the number of days from now to predict the stock price: "))
+    input("Enter the number of *business* days from now to predict the "
+          "stock price (i.e., excluding weekends and US market holidays): ")
+)
 
 # Start from the last known data
 last_known_data = model_inputs[-prediction_days:]
 
-# Predict the price for the specified number of days ahead
+# Predict the price for the specified number of business days ahead
 predictions = []
 for _ in range(days_ahead):
     real_data = np.array([last_known_data])
@@ -119,18 +152,59 @@ for _ in range(days_ahead):
     # Append the new prediction to predictions list
     predictions.append(prediction[0][0])
 
-    # Append the new prediction to last_known_data and remove the
-    # first entry to maintain the window size
+    # Append the new prediction to last_known_data for the next iteration
     last_known_data = np.append(
         last_known_data, scaler.transform(prediction),
         axis=0
     )
+    # Remove the first entry to maintain the window size
     last_known_data = last_known_data[1:]
 
+# Calculate the projected business date
+future_date = pd.Timestamp.today() + BDay(days_ahead)
 
-# The final prediction is the stock price for
-# the specified number of days ahead
+# The final prediction output
 print(
-    f"The predicted {company} share price in {days_ahead} days will "
-    f"most likely be: {predictions[-1]}"
+    f"The predicted {company} share price on {future_date.date()} "
+    f"({days_ahead} business days from now) will most likely be: "
+    f"${predictions[-1]:.2f}"
 )
+
+# Create csv-files directory if it doesn't exist
+output_dir = "csv-files"
+os.makedirs(output_dir, exist_ok=True)
+
+# Save historical and predicted data to CSV
+historical_close = [
+    round(float(c), 2)
+    for c in pd.to_numeric(data['Close'], errors='coerce')
+]
+historical_df = pd.DataFrame({
+    'Date': data.index.date,
+    f'{company}_Historical_Close': historical_close
+})
+
+future_dates = [
+    (pd.Timestamp.today() + BDay(i + 1)).date()
+    for i in range(days_ahead)
+]
+
+predicted_df = pd.DataFrame({
+    'Date': future_dates,
+    f'{company}_Predicted_Close': [round(p, 2) for p in predictions]
+})
+
+# Merge and save
+full_df = pd.concat([historical_df, predicted_df], ignore_index=True)
+filename = os.path.join(
+    output_dir,
+    f"{company}_full_predictions_{pd.Timestamp.today().date()}.csv"
+)
+full_df.to_csv(filename, index=False)
+
+print(f"\n✅ Historical and predicted prices saved to '{filename}'")
+
+# For debugging purposes: print the last real_data inverse transformed
+'''
+print(np.round(scaler.inverse_transform(real_data[-1]), 2))
+'''
