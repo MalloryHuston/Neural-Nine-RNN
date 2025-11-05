@@ -4,7 +4,7 @@ This algorithm predicts stock prices in Python using recurrent neural networks a
 
 ## Quickstart Install Instructions
 
-It is highly recommended to run this program in a ``conda`` environment. You can find further instructions on how to install ``miniconda.sh`` on your computer if you have a macOS that is an Apple Silicon by clicking <a href="https://www.anaconda.com/docs/getting-started/miniconda/install#macos-2">this link here.</a> Download and install ``miniconda.sh`` by following these steps:
+It is highly recommended to run this program in a ``conda`` environment. You can find further instructions on how to install ``miniconda.sh`` on your computer <a href="https://www.anaconda.com/docs/getting-started/miniconda/install">here.</a> Download and install ``miniconda.sh`` by following these steps:
 
 1. Run the following four commands to download and install the latest macOS installer for Apple Silicon. Line by line, these commands:
 
