@@ -1,0 +1,38 @@
+# Exclude the top-level extensions / history tracking folder
+.history/
+
+# Exclude the custom Python 3.10 virtual environment folder
+neural_nine/
+/bin/
+/include/
+/lib/
+/share/
+
+# Virtual Environments (Matches .venv, neural_nine, or any custom environment name)
+.venv/
+*_env/
+venv/
+ENV/
+
+# Python caching and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# macOS system files
+.DS_Store
+
+# IDE and Code Editor configurations
+.vscode/
+.idea/
+
+# Machine Learning weights, checkpoints, and large data files
+*.h5
+*.pkl
+*.pth
+*.pt
+*.ckpt
+*.cfg
+*.1
+/data/
+/checkpoints/
