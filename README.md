@@ -4,7 +4,7 @@
 
 *This is **<ins>NOT</ins>** investing advice. I am **<ins>NOT</ins>** a professional who is qualified in giving any financial advice. This is a Python program purely about coding financial data from the New York Stock Exchange.*
 
-This algorithm attempts to predict future stock prices by using recurrent neural networks and machine learning. Tremendous shout out to [NeuralNine](https://www.youtube.com/watch?v=PuZY9q-aKLw) who taught me how to get started on a project like this.
+This algorithm attempts to predict future stock prices by using recurrent neural networks and machine learning. Tremendous shout out to [NeuralNine](https://www.youtube.com/watch?v=PuZY9q-aKLw) who taught me how to learn the necessary skills and get started on a project like this.
 
 ## Quickstart Install Instructions
 
@@ -12,29 +12,39 @@ It is highly recommended that you run this program in a custom `conda` environme
 
 Now, download and install `miniconda.sh` by following these steps:
 
-### 1. Run the following commands to download and install the latest macOS installer for Apple Silicon. Line by line, write out these four commands:
+### 1. Run the following commands to download and install the latest macOS installer for Apple Silicon. Line by line, write out these four commands
 
-```bash
-# Create a new folder named `miniconda3` in your home directory.
-mkdir -p ~/miniconda3
+* Create a new folder named `miniconda3` in your home directory.
 
-# Download the macOS Miniconda installation script for your Apple Silicon architecture and save the script as `miniconda.sh` in the `miniconda3` folder.
-curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh -o ~/miniconda3/miniconda.sh
+  ```bash
+  mkdir -p ~/miniconda3
+  ```
 
-# Run the `miniconda.sh` installation script in silent mode using `Bash`.
-bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3 
+* Download the macOS Miniconda installation script for your Apple Silicon architecture and save the script as `miniconda.sh` in the `miniconda3` folder.
 
-# Remove the `miniconda.sh` installation script file after the installation is complete.
-rm ~/miniconda3/miniconda.sh
-```
+  ```bash
+  curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh -o ~/miniconda3/miniconda.sh
+  ```
 
-### 2. After installing, close and reopen your terminal application or refresh it by running the following command:
+* Run the `miniconda.sh` installation script in silent mode using `Bash`.
+
+  ```bash
+  bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+  ```
+
+* Remove the `miniconda.sh` installation script file after the installation is complete.
+
+  ```bash
+  rm ~/miniconda3/miniconda.sh
+  ```
+
+### 2. After installing, close and reopen your terminal application or refresh it by running the following command
 
 ```bash
 source ~/miniconda3/bin/activate
 ```
 
-### 3. Next, you'll need to initialize `conda` on all available shells by running the following command:
+### 3. Next, you'll need to initialize `conda` on all available shells by running the following command
 
 ```bash
 conda init --all
