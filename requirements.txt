@@ -6,8 +6,6 @@ pandas-datareader
 requests
 requests-cache
 scikit-image
-setuptools
-wheel
 yfinance
 
 ###### Requirements With Version Specifiers ######
