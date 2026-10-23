@@ -27,10 +27,13 @@ except Exception as e:
     earnings_dates = []
     print(f"WARNING: Could not fetch earnings dates for {company}: {e}")
 
-start = dt.datetime(2016, 1, 1)
-end = dt.datetime(2024, 1, 1)
+start = dt.datetime(2017, 1, 1)
+end = dt.datetime(2025, 1, 1)
 
+# Flatten training data
 data = yf.download(company, start=start, end=end)
+if isinstance(data.columns, pd.MultiIndex):
+    data.columns = data.columns.droplevel('Ticker') # or data.columns.droplevel(1)
 
 # Prepare data
 scaler = MinMaxScaler(feature_range=(0, 1))
@@ -61,12 +64,17 @@ model.compile(optimizer='adam', loss='mean_squared_error')
 model.fit(x_train, y_train, epochs=25, batch_size=32)
 
 # Load test data
-test_start = dt.datetime(2024, 1, 1)
+test_start = dt.datetime(2025, 1, 1)
 test_end = dt.datetime.now()
 
+# Flatten test data
 test_data = yf.download(company, start=test_start, end=test_end)
+if isinstance(test_data.columns, pd.MultiIndex):
+    test_data.columns = test_data.columns.droplevel('Ticker') # or test_data.columns.droplevel(1)
+
 actual_prices = test_data['Close'].values
 
+# Both are flattened, concat now matches array dims perfectly
 total_dataset = pd.concat((data['Close'], test_data['Close']), axis=0)
 
 model_inputs = total_dataset[
@@ -115,7 +123,7 @@ for ed in earnings_dates:
             "Earnings",
             rotation=90,
             verticalalignment='top',
-            horitzonalalignment='right',
+            horizontalalignment='right',
             fontsize=9,
             color='red'
         )
@@ -181,7 +189,7 @@ historical_close = [
 ]
 historical_df = pd.DataFrame({
     'Date': data.index.date,
-    f'{company}_Historical_Close': historical_close
+    f'{company}_Historical_Close': historical_close,
 })
 
 future_dates = [
